@@ -3,5 +3,7 @@ from stars.views import *
 
 urlpatterns = [
     path('', index),
-    path('categories/', categories),
+    path('categories/<int:category_id>/', categories),
 ]
+
+handler404 = pageNotFound
