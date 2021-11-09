@@ -1,0 +1,15 @@
+{% extends 'stars/base.html' %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <ul>
+        {% for p in posts %}
+            <li>
+                <h2> {{ p.title }}</h2>
+                <p>{{ p.text }}</p>
+                <hr>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock content %}
