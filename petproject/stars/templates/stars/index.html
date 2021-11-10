@@ -1,15 +1,15 @@
 {% extends 'stars/base.html' %}
 
 {% block content %}
-    <h1>{{ title }}</h1>
-    <ul>
+    <ul class="list-articles">
         {% for p in posts %}
-            <li>
-                <h2> {{ p.title }}</h2>
-                <p>{{ p.text }}</p>
-                <hr>
+            <li><h2>{{ p.title }}</h2>
+                {% autoescape on %}
+                    {{ p.text|linebreaks|truncatewords:50 }}
+                {% endautoescape %}
+                <div class="clear"></div>
+                <p class="link-read-post"><a href="#">Читать пост</a></p>
             </li>
         {% endfor %}
     </ul>
-
-{% endblock content %}
+{% endblock %}
