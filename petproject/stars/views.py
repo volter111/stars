@@ -4,23 +4,42 @@ from .models import *
 
 # Create your views here.
 
-menu = ['О сайте', 'Добавить статью', 'Обратная связь', 'Войти']
+menu = [{'title': 'О сайте', 'url_name': 'about'},
+        {'title': 'Добавить статью', 'url_name': 'add_page'},
+        {'title': 'Обратная связь', 'url_name': 'contact'},
+        {'title': 'Войти', 'url_name': 'login'},
+        ]
 
 
 def index(request):
     posts = Celebrity.objects.all()  # получаем все записи с бд, модель Celebrity
-    return render(request, 'stars/index.html', {'menu': menu, 'title': 'Домашнаяя страница', 'posts': posts})
+    context = {
+        'menu': menu,
+        'title': 'Домашнаяя страница',
+        'posts': posts
+    }
+    return render(request, 'stars/index.html', context=context)
 
 
 def about(request):
     return render(request, 'stars/about.html', {'menu': menu, 'title': 'О сайте'})
 
 
-def categories(request, category_id):
-    if request.GET:
-        print(request.GET)
-    return HttpResponse(f"<h1>Статьи по категориям</h1><p>{category_id}<p/>")
+def add_page(request):
+    return HttpResponse("Add page")
+
+
+def login(request):
+    return HttpResponse("Login page")
+
+
+def contact(request):
+    return HttpResponse("Contact us")
 
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound("<h1>Страница не найдена</h1>")
+
+
+def show_post(request, post_id):
+    return HttpResponse(f"Статья с ID: {post_id}")
