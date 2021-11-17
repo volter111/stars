@@ -10,6 +10,10 @@
                     <p class="last">Дата: {{ p.time_update|date:"d-m-Y H:i" }}</p>
                 </div>
 
+                {% if p.photo %}
+                    <p><img class="img-article-left thumb" src="{{ p.photo.url }}" alt="Img"></p>
+                {% endif %}
+
                 <h2>{{ p.title }}</h2>
 
                 {% autoescape on %}
@@ -18,6 +22,7 @@
 
                 <div class="clear"></div>
                 <p class="link-read-post"><a href="{{ p.get_absolute_url }}" class="floating-button">Читать пост</a></p>
+
             </li>
         {% endfor %}
     </ul>
