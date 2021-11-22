@@ -1,4 +1,5 @@
 {% load static %}
+{% load stars_tags %}
 <!DOCTYPE html>
 <html lang="RU">
 <head>
@@ -42,7 +43,9 @@
                                 <li><a href="{% url 'home' %}">Все категории</a></li>
                             {% endif %}
 
-                            {% for c in cats %}
+                            {% get_categories as categories %}
+
+                            {% for c in categories %}
                                 {% if c.pk == cat_selected %}
                                     <li class="selected">{{ c.name }}</li>
                                 {% else %}
