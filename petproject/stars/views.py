@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
+from .forms import *
 
 # Create your views here.
 
@@ -12,7 +13,6 @@ menu = [{'title': 'О сайте', 'url_name': 'about'},
 
 
 def index(request):
-
     posts = Celebrities.objects.all()  # получаем все записи с бд, модель Celebrity
 
     context = {
@@ -29,7 +29,21 @@ def about(request):
 
 
 def add_page(request):
-    return HttpResponse("Add page")
+    if request.method == 'POST':
+        form = AddPostForm(request.POST)
+
+        if form.is_valid():
+            try:
+                Celebrities.objects.create(**form.cleaned_data)
+                return redirect('home')
+
+            except:
+                form.add_error(None, 'Ошибка добавления поста')
+
+    else:
+        form = AddPostForm()
+
+    return render(request, 'stars/add_page.html', {'form': form, 'menu': menu, 'title': 'Добавить запись'})
 
 
 def login(request):
