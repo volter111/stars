@@ -30,19 +30,12 @@ def about(request):
 
 def add_page(request):
     if request.method == 'POST':
-        form = AddPostForm(request.POST)
-
+        form = AddPostForm(request.POST, request.FILES)
         if form.is_valid():
-            try:
-                Celebrities.objects.create(**form.cleaned_data)
-                return redirect('home')
-
-            except:
-                form.add_error(None, 'Ошибка добавления поста')
-
+            form.save()
+            return redirect('home')
     else:
         form = AddPostForm()
-
     return render(request, 'stars/add_page.html', {'form': form, 'menu': menu, 'title': 'Добавить запись'})
 
 

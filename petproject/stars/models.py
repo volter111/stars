@@ -24,7 +24,7 @@ class Celebrities(models.Model):
     class Meta:
         verbose_name_plural = "Знаменитости"
         verbose_name = "Знаменитость"
-        ordering = ['time_create', 'title']
+        ordering = ['-time_create']
 
 
 class Category(models.Model):
